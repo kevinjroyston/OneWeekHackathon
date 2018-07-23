@@ -9,12 +9,12 @@ public class PlayerController : MonoBehaviour {
 	
 	// Create public variables for player speed, and for the Text UI game objects
 	public float speed;
-	public Text countText;
-	public Text winText;
+	//public Text countText;
+	//public Text winText;
 
 	// Create private references to the rigidbody component on the player, and the count of pick up objects picked up so far
 	private Rigidbody rb;
-	private int count;
+	//private int count;
 
 	// At the start of the game..
 	void Start ()
@@ -23,13 +23,13 @@ public class PlayerController : MonoBehaviour {
 		rb = GetComponent<Rigidbody>();
 
 		// Set the count to zero 
-		count = 0;
+		//count = 0;
 
 		// Run the SetCountText function to update the UI (see below)
-		SetCountText ();
+		//SetCountText ();
 
 		// Set the text property of our Win Text UI to an empty string, making the 'You Win' (game over message) blank
-		winText.text = "";
+		//winText.text = "";
 	}
 
 	// Each physics step..
@@ -44,7 +44,10 @@ public class PlayerController : MonoBehaviour {
 
 		// Add a physical force to our Player rigidbody using our 'movement' Vector3 above, 
 		// multiplying it by 'speed' - our public player speed that appears in the inspector
-		rb.AddForce (movement * speed);
+		//rb.AddForce (movement * speed * Time.deltaTime);
+        //transform.Translate(movement * speed * Time.deltaTime);
+        rb.AddForce(movement * speed * Time.deltaTime, ForceMode.VelocityChange);
+
 	}
 
 	// When this game object intersects a collider with 'is trigger' checked, 
@@ -58,18 +61,18 @@ public class PlayerController : MonoBehaviour {
 			other.gameObject.SetActive (false);
 
 			// Add one to the score variable 'count'
-			count = count + 1;
+			//count = count + 1;
 
 			// Run the 'SetCountText()' function (see below)
-			SetCountText ();
+			//SetCountText ();
 		}
 	}
 
 	// Create a standalone function that can update the 'countText' UI and check if the required amount to win has been achieved
-	void SetCountText()
+	/*void SetCountText()
 	{
 		// Update the text field of our 'countText' variable
-		countText.text = "Count: " + count.ToString ();
+		//countText.text = "Count: " + count.ToString ();
 
 		// Check if our 'count' is equal to or exceeded 12
 		if (count >= 12) 
@@ -77,5 +80,5 @@ public class PlayerController : MonoBehaviour {
 			// Set the text value of our 'winText'
 			winText.text = "You Win!";
 		}
-	}
+	}*/
 }
