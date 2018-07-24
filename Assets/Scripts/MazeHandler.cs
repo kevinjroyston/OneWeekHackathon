@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System;
 
 public class MazeHandler : MonoBehaviour
 {
@@ -14,19 +15,44 @@ public class MazeHandler : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        FindMaze();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void FindMaze() //This is so hacky, im so sorry
     {
+        maze = new TileNode[width, height];
 
+        GameObject wall = Instantiate(wallPrefab);
+        Vector3 wallScale = wall.transform.localScale;
+        float wallWidth = wallScale.x;
+        float wallHeight = wallScale.y;
+        float wallLength = wallScale.z;
+        Destroy(wall);
+        Vector3 currentlocation = Vector2.zero;
+        Vector3 rowStart = currentlocation;
+        for (int j = 0; j < height; j++)
+        {
+            currentlocation = rowStart;
+            for (int i = 0; i < width; i++)
+            {
+                GameObject tile = GameObject.Find((currentlocation + new Vector3(0, -.2f, 0)).ToString());
+                GameObject north = GameObject.Find((currentlocation + new Vector3(0f, wallHeight/2f, -wallLength / 2f)).ToString());
+                GameObject east = GameObject.Find((currentlocation + new Vector3(wallLength/2f, wallHeight / 2f, 0f)).ToString());
+                GameObject south = GameObject.Find((currentlocation + new Vector3(0f, wallHeight / 2f, wallLength / 2f)).ToString());
+                GameObject west = GameObject.Find((currentlocation + new Vector3(-wallLength / 2f, wallHeight / 2f, 0f)).ToString());
+                
+
+                TileNode currentTile = new TileNode(tile, north, east, south, west);
+                currentlocation += new Vector3(1f, 0f, 0f) * wallLength;
+                maze[i, j] = currentTile;
+            }
+            rowStart = rowStart + new Vector3(0f, 0f, -1f) * wallLength;
+        }
+        Debug.Log(maze);
     }
 
-    public void BuildMaze(int width = -1, int height = -1)
+    public void BuildMaze()
     {
-        width = width == -1 ? this.width : width;
-        height = height == -1 ? this.height : height;
 
         maze = new TileNode[width, height];
 
@@ -47,11 +73,11 @@ public class MazeHandler : MonoBehaviour
                 WallHelper east = SafeCheckIfWallExists(i, j, Vector2.right);
                 WallHelper south = SafeCheckIfWallExists(i, j, Vector2.down);
                 WallHelper west = SafeCheckIfWallExists(i, j, Vector2.left);
-                GameObject tile = (GameObject)PrefabUtility.InstantiatePrefab(wallPrefab);
+                GameObject tile = (GameObject)PrefabUtility.InstantiatePrefab(floorPrefab);
                 tile.transform.localScale = new Vector3(wallLength, .4f, wallLength);
                 tile.transform.SetParent(transform);
                 tile.transform.localPosition = currentlocation + new Vector3(0, -.2f, 0);
-
+                tile.name = tile.transform.localPosition.ToString();
                 if (north == null)
                 {
                     north = MakeNewWall(currentlocation + new Vector3(0f, 0f, -wallLength / 2f), 90f).GetComponent<WallHelper>();
@@ -68,11 +94,7 @@ public class MazeHandler : MonoBehaviour
                 {
                     west = MakeNewWall(currentlocation + new Vector3(-wallLength / 2f, 0f, 0f), 0f).GetComponent<WallHelper>();
                 }
-
-                if (south == null)
-                    Debug.LogWarning("oops");
-
-
+                
                 TileNode currentTile = new TileNode(tile, north, east, south, west);
                 currentlocation += new Vector3(1f, 0f, 0f) * wallLength;
                 maze[i, j] = currentTile;
@@ -87,6 +109,7 @@ public class MazeHandler : MonoBehaviour
         currentPosition.y = newWall.transform.localScale.y / 2f;
         newWall.transform.localPosition = currentPosition;
         newWall.transform.localEulerAngles = new Vector3(0f, rotation, 0f);
+        newWall.name = newWall.transform.localPosition.ToString();
         return newWall;
     }
 
@@ -105,19 +128,21 @@ public class MazeHandler : MonoBehaviour
     }
     public void ClearMaze()
     {
-        foreach (Transform child in transform)
+        while (transform.childCount>0)
         {
+            Transform child = transform.GetChild(0);
             DestroyImmediate(child.gameObject);
         }
     }
 }
-public class TileNode
+    public class TileNode
 {
     TileHelper tile;
     WallHelper north;
     WallHelper east;
     WallHelper south;
     WallHelper west;
+    
     public TileNode(GameObject tile, GameObject north, GameObject east, GameObject south, GameObject west)
     {
         this.tile = tile.GetComponent<TileHelper>();
