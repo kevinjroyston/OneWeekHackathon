@@ -1,44 +1,42 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class WallHelper : MonoBehaviour {
-    public bool isTransparent;
     private bool isActive = false;
+    private bool locked = false;
+    float colorSpeed = .04f;
 	// Use this for initialization
 	void Start () {
-        this.ToggleWall(!isTransparent);
     }
-	
-	// Update is called once per frame
+
+    // Update is called once per frame
+    float colorTimer = 1000f;
 	void Update () {
-		
-	}
+        colorTimer += Time.deltaTime * colorSpeed;
+        //SetColor(Color.Lerp(a,b, .5f + .5f*Mathf.Sin(colorTimer + transform.position.x )));
+        SetColor(Color.HSVToRGB((colorTimer+transform.localPosition.x*.1f+transform.localPosition.z*.1f) % 1f, 1f, 1f));
+    }
 
     public void SetColor(Color col)
     {
+        GetComponent<Renderer>().material.color = col;
+    }
+
+    public void ToggleWall()
+    {
 
     }
 
-    public void ToggleWall(bool toggleOn)
+    public void SetActive(bool isActive)
     {
-        Color color = gameObject.GetComponent<Renderer>().material.color;
-        if (toggleOn)
-        {
-            color.a = 1.0f;
-            gameObject.GetComponent<NavMeshObstacle>().enabled = true;
-        } else
-        {
-            color.a = 0.5f;
-            gameObject.GetComponent<NavMeshObstacle>().enabled = false;
-        }
-        gameObject.GetComponent<Renderer>().material.color = color;
+        isActive = false;
+
     }
 
-    public bool isToggled()
+    public void SetLock(bool locked)
     {
-        return gameObject.GetComponent<NavMeshObstacle>().enabled;
+        this.locked = locked;
     }
 
     public bool getIsActive()

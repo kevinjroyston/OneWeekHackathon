@@ -4,17 +4,21 @@ using UnityEngine;
 
 public class TileHelper : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+    float colorSpeed = .04f;
+    // Use this for initialization
+    void Start () {
 		
 	}
-	
-	// Update is called once per frame
-	void Update () {
-
+    float colorTimer = 1000f;
+    void Update()
+    {
+        colorTimer += Time.deltaTime * colorSpeed;
+        //SetColor(Color.Lerp(a,b, .5f + .5f*Mathf.Sin(colorTimer + transform.position.x )));
+        SetColor(Color.HSVToRGB((colorTimer + transform.localPosition.x * .1f + transform.localPosition.z * .1f) % 1f, 1f, 1f));
     }
     public void SetColor(Color col)
     {
+        GetComponent<Renderer>().material.color = col;
 
     }
 }
