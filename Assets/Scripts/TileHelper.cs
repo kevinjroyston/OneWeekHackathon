@@ -18,7 +18,8 @@ public class TileHelper : MonoBehaviour {
     }
     public void SetColor(Color col)
     {
-        GetComponent<Renderer>().material.color = col;
-
+        Color oldColor = GetComponent<Renderer>().material.color;
+        Color newColor = new Color(col.r, col.g, col.b, oldColor.a);
+        GetComponent<Renderer>().material.color = newColor;
     }
 }
