@@ -55,6 +55,7 @@ public class MazeHandler : MonoBehaviour
     {
 
         maze = new TileNode[width, height];
+        GameObject mazeFloorTilesParent = GameObject.Find("MazeTiles");
 
         GameObject wall = Instantiate(wallPrefab);
         Vector3 wallScale = wall.transform.localScale;
@@ -75,7 +76,7 @@ public class MazeHandler : MonoBehaviour
                 WallHelper west = SafeCheckIfWallExists(i, j, Vector2.left);
                 GameObject tile = (GameObject)PrefabUtility.InstantiatePrefab(floorPrefab);
                 tile.transform.localScale = new Vector3(wallLength, .4f, wallLength);
-                tile.transform.SetParent(transform);
+                tile.transform.SetParent(mazeFloorTilesParent.transform);
                 tile.transform.localPosition = currentlocation + new Vector3(0, -.2f, 0);
                 tile.name = tile.transform.localPosition.ToString();
                 if (north == null)
@@ -128,9 +129,15 @@ public class MazeHandler : MonoBehaviour
     }
     public void ClearMaze()
     {
-        while (transform.childCount>0)
+        while (transform.childCount > 0)
         {
             Transform child = transform.GetChild(0);
+            DestroyImmediate(child.gameObject);
+        }
+        GameObject mazeFloorTilesParent = GameObject.Find("MazeTiles");
+        while (mazeFloorTilesParent.transform.childCount > 0)
+        {
+            Transform child = mazeFloorTilesParent.transform.GetChild(0);
             DestroyImmediate(child.gameObject);
         }
     }

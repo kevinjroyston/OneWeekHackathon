@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 65334296353815020}
   - component: {fileID: 23439993335400214}
   - component: {fileID: 114425137628200632}
+  - component: {fileID: 208441427108181246}
   m_Layer: 0
   m_Name: MazeWall
   m_TagString: Untagged
@@ -108,3 +109,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 679d976057e528f418d2ca9f65a615d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startTransparent: 0
+--- !u!208 &208441427108181246
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1014357421589934}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0
+  m_Carve: 1
+  m_CarveOnlyStationary: 0
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0

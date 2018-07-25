@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 114663327007658658}
   - component: {fileID: 114780203195127728}
   - component: {fileID: 114975664594800892}
+  - component: {fileID: 195888735675201212}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -44,7 +45,6 @@ GameObject:
   - component: {fileID: 33626272717706772}
   - component: {fileID: 23274743029241886}
   - component: {fileID: 65451438025969222}
-  - component: {fileID: 114943161539568472}
   m_Layer: 8
   m_Name: Visor
   m_TagString: Untagged
@@ -234,38 +234,6 @@ MonoBehaviour:
     i15: 114
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
---- !u!114 &114943161539568472
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1711774139107346}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 220
-    i1: 56
-    i2: 212
-    i3: 18
-    i4: 253
-    i5: 32
-    i6: 255
-    i7: 20
-    i8: 75
-    i9: 131
-    i10: 217
-    i11: 209
-    i12: 118
-    i13: 18
-    i14: 130
-    i15: 114
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 1
 --- !u!114 &114975664594800892
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -300,3 +268,24 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!195 &195888735675201212
+NavMeshAgent:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1415814566920134}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5000001
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
