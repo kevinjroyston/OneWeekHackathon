@@ -1,0 +1,4 @@
+Make walls networked objects
+Fix lighting issue
+Make it so only the server can modify walls 
+other weird bugs
