@@ -90,7 +90,7 @@ public class WallPathfinding : MonoBehaviour {
     private void OnMouseUp()
     {
         Debug.Log("OnMouseUp");
-        if (!gameObject.GetComponent<WallHelper>().isToggled())
+        if (!gameObject.GetComponent<WallHelper>().IsToggled())
         {
             onWallEnabled(gameObject, new Queue<GameObject>(getOtherWalls()));
         } else
@@ -105,7 +105,7 @@ public class WallPathfinding : MonoBehaviour {
         foreach (Transform child in walls.transform)
         {
             GameObject wall = child.gameObject;
-            if (wall != gameObject && wall.GetComponent<WallHelper>().isToggled())
+            if (wall != gameObject && wall.GetComponent<WallHelper>().IsToggled())
             {
                 otherWalls.Add(wall);
             }

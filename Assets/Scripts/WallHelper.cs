@@ -4,13 +4,11 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class WallHelper : MonoBehaviour {
-    public bool startTransparent;
-    private bool isActive = false;
-    private bool locked = false;
+    public bool isActive = false;
     float colorSpeed = .04f;
 	// Use this for initialization
 	void Start () {
-        this.ToggleWall(!startTransparent);
+        ToggleWall(isActive);
     }
 
     // Update is called once per frame
@@ -23,18 +21,23 @@ public class WallHelper : MonoBehaviour {
 
     public void SetColor(Color col)
     {
+        col.a = GetComponent<Renderer>().material.color.a;
         GetComponent<Renderer>().material.color = col;
     }
 
     public void ToggleWall(bool isToggle)
     {
+        isActive = isToggle;
+
         Color color = gameObject.GetComponent<Renderer>().material.color;
         if (isToggle)
         {
+            gameObject.layer = 9;
             gameObject.GetComponent<NavMeshObstacle>().enabled = true;
             color.a = 1.0f;
         } else
         {
+            gameObject.layer = 10;
             gameObject.GetComponent<NavMeshObstacle>().enabled = false;
             color.a = 0.1f;
         }
@@ -42,24 +45,14 @@ public class WallHelper : MonoBehaviour {
 
     }
 
-    public bool isToggled()
+    public void ChangeToggle()
+    {
+        ToggleWall(!isActive);
+    }
+
+    public bool IsToggled()
     {
         return gameObject.GetComponent<NavMeshObstacle>().enabled;
     }
 
-    public void SetActive(bool isActive)
-    {
-        isActive = false;
-
-    }
-
-    public void SetLock(bool locked)
-    {
-        this.locked = locked;
-    }
-
-    public bool getIsActive()
-    {
-        return isActive;
-    }
 }

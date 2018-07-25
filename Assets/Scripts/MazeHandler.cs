@@ -169,7 +169,7 @@ public class MazeHandler : MonoBehaviour
     public bool isConnected(Vector2 direction)
     {
         WallHelper wall = GetWall(direction);
-        return wall == null? false : !wall.getIsActive();
+        return wall == null? false : !wall.IsToggled();
     }
     
     public WallHelper GetWall(Vector2 direction)
