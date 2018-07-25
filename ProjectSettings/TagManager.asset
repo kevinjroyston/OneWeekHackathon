@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Goal
   - Pick Up
+  - Maze
   layers:
   - Default
   - TransparentFX

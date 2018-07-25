@@ -97,6 +97,8 @@ public class WallPathfinding : MonoBehaviour {
 
     private void OnMouseUp()
     {
+        //if (!Network.isServer)
+          //  return;
         //Debug.Log("OnMouseUp");
         if (!gameObject.GetComponent<WallHelper>().IsToggled())
         {

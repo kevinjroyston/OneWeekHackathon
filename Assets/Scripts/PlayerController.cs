@@ -25,6 +25,7 @@ public class PlayerController : NetworkBehaviour
         GameObject parent = GameObject.Find("PlayerHolder");
         transform.SetParent(parent.transform);
 
+        Camera.main.GetComponent<CameraController>().player = gameObject;
     }
 
     // Each physics step
@@ -51,15 +52,28 @@ public class PlayerController : NetworkBehaviour
         GetComponent<MeshRenderer>().material.color = Color.blue;
     }
 
+
+    bool carryingObjective = false;
     // When this game object intersects a collider with 'is trigger' checked, 
     // store a reference to that collider in a variable named 'other'..
     void OnTriggerEnter(Collider other)
     {
         // ..and if the game object we intersect has the tag 'Pick Up' assigned to it..
-        if (other.gameObject.CompareTag("Pick Up"))
+        if (other.gameObject.CompareTag("Goal"))
         {
             // Make the other game object (the pick up) inactive, to make it disappear
             other.gameObject.SetActive(false);
+            carryingObjective = true;
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Maze"))
+        {
+            // Make the other game object (the pick up) inactive, to make it disappear
+            if (carryingObjective)
+                VictoryScript.victoryScript.ShowVictory();
         }
     }
 

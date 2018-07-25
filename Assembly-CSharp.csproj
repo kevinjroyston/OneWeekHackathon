@@ -59,6 +59,7 @@
      <Compile Include="Assets\Scripts\Rotator.cs" />
      <Compile Include="Assets\Scripts\SimpleMovement.cs" />
      <Compile Include="Assets\Scripts\TileHelper.cs" />
+     <Compile Include="Assets\Scripts\VictoryScript.cs" />
      <Compile Include="Assets\Scripts\WallHelper.cs" />
      <Compile Include="Assets\Scripts\WallPathfinding.cs" />
  <Reference Include="UnityEditor.StandardEvents">
