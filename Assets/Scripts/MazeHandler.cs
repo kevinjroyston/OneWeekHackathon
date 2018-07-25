@@ -111,6 +111,7 @@ public class MazeHandler : MonoBehaviour
         newWall.transform.localPosition = currentPosition;
         newWall.transform.localEulerAngles = new Vector3(0f, rotation, 0f);
         newWall.name = newWall.transform.localPosition.ToString();
+        newWall.GetComponent<WallHelper>().CreateNewMaterialInstance();
         return newWall;
     }
 

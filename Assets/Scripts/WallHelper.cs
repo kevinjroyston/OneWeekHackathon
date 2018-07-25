@@ -4,11 +4,18 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class WallHelper : MonoBehaviour {
-    public bool isActive = false;
+    public bool isActive = true;
     float colorSpeed = .04f;
 	// Use this for initialization
 	void Start () {
         ToggleWall(isActive);
+    }
+
+    public void CreateNewMaterialInstance() //hacky way to create a new material instance when the editor script runs. use .sharedMaterial during runtime
+    {
+        Color color = gameObject.GetComponent<Renderer>().material.color;
+        color.a = gameObject.GetComponent<Renderer>().material.color.a -.01f;
+        gameObject.GetComponent<Renderer>().material.color = color;
     }
 
     // Update is called once per frame
@@ -21,15 +28,15 @@ public class WallHelper : MonoBehaviour {
 
     public void SetColor(Color col)
     {
-        col.a = GetComponent<Renderer>().material.color.a;
-        GetComponent<Renderer>().material.color = col;
+        col.a = GetComponent<Renderer>().sharedMaterial.color.a;
+        GetComponent<Renderer>().sharedMaterial.color = col;
     }
 
     public void ToggleWall(bool isToggle)
     {
         isActive = isToggle;
 
-        Color color = gameObject.GetComponent<Renderer>().material.color;
+        Color color = gameObject.GetComponent<Renderer>().sharedMaterial.color;
         if (isToggle)
         {
             gameObject.layer = 9;
@@ -39,9 +46,9 @@ public class WallHelper : MonoBehaviour {
         {
             gameObject.layer = 10;
             gameObject.GetComponent<NavMeshObstacle>().enabled = false;
-            color.a = 0.1f;
+            color.a = 0.15f;
         }
-        gameObject.GetComponent<Renderer>().material.color = color;
+        gameObject.GetComponent<Renderer>().sharedMaterial.color = color;
 
     }
 

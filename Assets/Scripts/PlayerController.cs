@@ -22,6 +22,8 @@ public class PlayerController : NetworkBehaviour
     {
         // Assign the Rigidbody component to our private rb variable
         rb = GetComponent<Rigidbody>();
+        GameObject parent = GameObject.Find("PlayerHolder");
+        transform.SetParent(parent.transform);
 
     }
 

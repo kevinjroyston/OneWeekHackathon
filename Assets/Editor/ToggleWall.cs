@@ -26,5 +26,7 @@ public class ToggleWall : Editor
         {
             wall.ChangeToggle();
         }
+
+        EditorUtility.SetDirty(target);
     }
 }

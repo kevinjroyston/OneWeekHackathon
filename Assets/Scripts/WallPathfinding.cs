@@ -16,6 +16,8 @@ public class WallPathfinding : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        walls = GameObject.Find("MazeWalls");
+        players = GameObject.Find("PlayerHolder");
         goals = GameObject.FindGameObjectsWithTag("Goal");
     }
 
@@ -24,13 +26,16 @@ public class WallPathfinding : MonoBehaviour {
      */
     public void onWallEnabled(GameObject enableWall, Queue<GameObject> movableWalls)
     {
+        if (players.transform.childCount == 0)
+            return;
         enableWall.GetComponent<WallHelper>().ToggleWall(true);
         StartCoroutine(isPathToGoal(isPath =>
         {
             if (!isPath)
             {
                 Debug.Log("The wall disabled did block the path");
-                disableWallToMakePath(enableWall, movableWalls);
+                //disableWallToMakePath(enableWall, movableWalls);
+                enableWall.GetComponent<WallHelper>().ToggleWall(false);
             } else
             {
                 Debug.Log("The wall disabled did not block the path");
@@ -76,10 +81,13 @@ public class WallPathfinding : MonoBehaviour {
                 } else
                 {
                     LineRenderer line = agent.GetComponent<LineRenderer>();
-                    line.positionCount = path.corners.Length;;
-                    for (int i = 0; i < path.corners.Length; i++)
+                    if (line != null)
                     {
-                        line.SetPosition(i, path.corners[i]);
+                        line.positionCount = path.corners.Length; ;
+                        for (int i = 0; i < path.corners.Length; i++)
+                        {
+                            line.SetPosition(i, path.corners[i]);
+                        }
                     }
                 }
             }
@@ -89,7 +97,7 @@ public class WallPathfinding : MonoBehaviour {
 
     private void OnMouseUp()
     {
-        Debug.Log("OnMouseUp");
+        //Debug.Log("OnMouseUp");
         if (!gameObject.GetComponent<WallHelper>().IsToggled())
         {
             onWallEnabled(gameObject, new Queue<GameObject>(getOtherWalls()));
@@ -102,6 +110,7 @@ public class WallPathfinding : MonoBehaviour {
     private List<GameObject> getOtherWalls()
     {
         List<GameObject> otherWalls = new List<GameObject>();
+        Debug.Log(walls);
         foreach (Transform child in walls.transform)
         {
             GameObject wall = child.gameObject;
