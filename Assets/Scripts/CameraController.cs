@@ -23,6 +23,7 @@ public class CameraController : MonoBehaviour
     {
         // Set the position of the Camera (the game object this script is attached to)
         // to the player's position, plus the offset amount
-        transform.position = player.transform.position + offset;
+        if(Network.isClient)
+            transform.position = player.transform.position + offset;
     }
 }

@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Networking;
 
-public class WallHelper : MonoBehaviour {
-    public bool isActive = true;
+public class WallHelper : NetworkBehaviour {
+    [SyncVar]public bool isActive = true;
+    bool hackyTrackLastIsActive = true;
     float colorSpeed = .04f;
 	// Use this for initialization
 	void Start () {
@@ -24,6 +26,11 @@ public class WallHelper : MonoBehaviour {
         colorTimer += Time.deltaTime * colorSpeed;
         //SetColor(Color.Lerp(a,b, .5f + .5f*Mathf.Sin(colorTimer + transform.position.x )));
         SetColor(Color.HSVToRGB((colorTimer+transform.localPosition.x*.1f+transform.localPosition.z*.1f) % 1f, 1f, 1f));
+        if(hackyTrackLastIsActive != isActive)
+        {
+            hackyTrackLastIsActive = isActive;
+            ToggleWall(isActive);
+        }
     }
 
     public void SetColor(Color col)

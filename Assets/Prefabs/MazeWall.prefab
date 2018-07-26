@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114425137628200632}
   - component: {fileID: 208441427108181246}
   - component: {fileID: 114339853941643138}
+  - component: {fileID: 114106791649720078}
   m_Layer: 0
   m_Name: MazeWall
   m_TagString: Untagged
@@ -99,6 +100,38 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114106791649720078
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1014357421589934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 28
+    i1: 165
+    i2: 174
+    i3: 248
+    i4: 171
+    i5: 114
+    i6: 149
+    i7: 164
+    i8: 26
+    i9: 127
+    i10: 28
+    i11: 103
+    i12: 162
+    i13: 99
+    i14: 204
+    i15: 42
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114339853941643138
 MonoBehaviour:
   m_ObjectHideFlags: 1

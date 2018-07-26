@@ -16,6 +16,7 @@ public class PlayerController : NetworkBehaviour
     // Create private references to the rigidbody component on the player
     private Rigidbody rb;
 
+    private Vector3 offset;
 
     // At the start of the game..
     void Start()
@@ -26,6 +27,8 @@ public class PlayerController : NetworkBehaviour
         transform.SetParent(parent.transform);
 
         Camera.main.GetComponent<CameraController>().player = gameObject;
+
+        offset = new Vector3(0f, 4f, -0.25f);
     }
 
     // Each physics step
@@ -45,6 +48,12 @@ public class PlayerController : NetworkBehaviour
 
         rb.AddForce(movement * speed * Time.deltaTime, ForceMode.VelocityChange);
 
+    }
+
+    void LateUpdate()
+    {
+        if (GetComponent<NetworkIdentity>().isClient)
+            Camera.main.transform.position = transform.position + offset;
     }
 
     public override void OnStartLocalPlayer()

@@ -51,6 +51,7 @@ public class MazeHandler : MonoBehaviour
         Debug.Log(maze);
     }
 
+#if UNITY_EDITOR
     public void BuildMaze()
     {
 
@@ -114,6 +115,7 @@ public class MazeHandler : MonoBehaviour
         newWall.GetComponent<WallHelper>().CreateNewMaterialInstance();
         return newWall;
     }
+#endif
 
     public TileNode SafeGetTile(int x, int y)
     {

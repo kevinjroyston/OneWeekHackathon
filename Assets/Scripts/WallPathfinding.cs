@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Networking;
 
 public class WallPathfinding : MonoBehaviour {
     // All players under one root object
@@ -97,8 +98,8 @@ public class WallPathfinding : MonoBehaviour {
 
     private void OnMouseUp()
     {
-        //if (!Network.isServer)
-          //  return;
+        if (GetComponent<NetworkIdentity>().isClient)
+            return;
         //Debug.Log("OnMouseUp");
         if (!gameObject.GetComponent<WallHelper>().IsToggled())
         {
